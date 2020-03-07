@@ -4,6 +4,7 @@ var bpm = document.querySelector('#bpm');
 btnConnect.addEventListener('click', connectToPolar);
 
 async function connectToPolar () {
+    console.log('click connect')
     var device = await navigator.bluetooth.requestDevice({ filters: [{ services: ['heart_rate'] }] });
     device = await device.gatt.connect();
     var hr = await device.getPrimaryService('heart_rate');
