@@ -2,6 +2,7 @@ var btnConnect = document.querySelector('#connect');
 var bpm = document.querySelector('#bpm');
 
 btnConnect.addEventListener('click', connectToPolar);
+btnConnect.addEventListener('touchstart', connectToPolar);
 
 async function connectToPolar () {
     console.log('click connect')
