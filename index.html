@@ -135,6 +135,10 @@
                     document.getElementById(id).focus();
                 }
             });
+            // "done" on ios
+            document.getElementById(hand.id).addEventListener('blur', (event) => {
+                calculate_and_render();
+            });
         };
 
         const rtp = calculate_rtp();
