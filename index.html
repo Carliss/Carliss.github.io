@@ -1,1 +1,202 @@
-<!DOCTYPE html><html lang=en><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1"><link rel=icon href=/favicon.ico><title>frontend</title><link href=/css/app.131827c2.css rel=preload as=style><link href=/js/app.ee3bf2ae.js rel=preload as=script><link href=/js/chunk-vendors.4c7a94e6.js rel=preload as=script><link href=/css/app.131827c2.css rel=stylesheet></head><body><noscript><strong>We're sorry but frontend doesn't work properly without JavaScript enabled. Please enable it to continue.</strong></noscript><div id=app></div><script src=/js/chunk-vendors.4c7a94e6.js></script><script src=/js/app.ee3bf2ae.js></script></body></html>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pyramid Side Bet Statistics</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #f4f4f4;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Final Statistics</h1>
+    <h2>Empirical</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Hand</th>
+                <th>Count</th>
+                <th>Probability (%)</th>
+                <th>Payout</th>
+                <th>Payout Probability (%)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Royal Flush</td>
+                <td>65</td>
+                <td>0.00012922</td>
+                <td>650000</td>
+                <td>0.62861816</td>
+            </tr>
+            <tr>
+                <td>Straight Flush</td>
+                <td>565</td>
+                <td>0.00112326</td>
+                <td>2825000</td>
+                <td>2.73207125</td>
+            </tr>
+            <tr>
+                <td>Four of a Kind</td>
+                <td>12062</td>
+                <td>0.02398012</td>
+                <td>6031000</td>
+                <td>5.83260945</td>
+            </tr>
+            <tr>
+                <td>Full House</td>
+                <td>72028</td>
+                <td>0.14319682</td>
+                <td>7202800</td>
+                <td>6.96586293</td>
+            </tr>
+            <tr>
+                <td>Flush</td>
+                <td>99110</td>
+                <td>0.19703777</td>
+                <td>7433250</td>
+                <td>7.18873225</td>
+            </tr>
+            <tr>
+                <td>Straight</td>
+                <td>177723</td>
+                <td>0.35332604</td>
+                <td>8886150</td>
+                <td>8.59383891</td>
+            </tr>
+            <tr>
+                <td>Three of a Kind</td>
+                <td>1061638</td>
+                <td>2.11061233</td>
+                <td>26540950</td>
+                <td>25.66788190</td>
+            </tr>
+            <tr>
+                <td>Two Pair</td>
+                <td>2391867</td>
+                <td>4.75520278</td>
+                <td>11959335</td>
+                <td>11.56593107</td>
+            </tr>
+            <tr>
+                <td>One Pair</td>
+                <td>21248612</td>
+                <td>42.24376143</td>
+                <td>31872918.0</td>
+                <td>30.82445409</td>
+            </tr>
+            <tr>
+                <td>High Card</td>
+                <td>25236330</td>
+                <td>50.17163022</td>
+                <td>0</td>
+                <td>0.00000000</td>
+            </tr>
+        </tbody>
+    </table>
+    <p>RTP: 2.05569390</p>
+
+    <h2>Theoretical</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Hand</th>
+                <th>Count</th>
+                <th>Probability (%)</th>
+                <th>Payout</th>
+                <th>Payout Probability (%)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Royal Flush</td>
+                <td>4</td>
+                <td>0.00015391</td>
+                <td>40000</td>
+                <td>0.73523735</td>
+            </tr>
+            <tr>
+                <td>Straight Flush</td>
+                <td>36</td>
+                <td>0.00138515</td>
+                <td>180000</td>
+                <td>3.30856809</td>
+            </tr>
+            <tr>
+                <td>Four of a Kind</td>
+                <td>624</td>
+                <td>0.02400923</td>
+                <td>312000</td>
+                <td>5.73485135</td>
+            </tr>
+            <tr>
+                <td>Full House</td>
+                <td>3744</td>
+                <td>0.14405541</td>
+                <td>374400</td>
+                <td>6.88182162</td>
+            </tr>
+            <tr>
+                <td>Flush</td>
+                <td>5148</td>
+                <td>0.19807618</td>
+                <td>386100</td>
+                <td>7.09687855</td>
+            </tr>
+            <tr>
+                <td>Straight</td>
+                <td>10200</td>
+                <td>0.39245864</td>
+                <td>510000</td>
+                <td>9.37427625</td>
+            </tr>
+            <tr>
+                <td>Three of a Kind</td>
+                <td>54912</td>
+                <td>2.11281262</td>
+                <td>1372800</td>
+                <td>25.23334595</td>
+            </tr>
+            <tr>
+                <td>Two Pair</td>
+                <td>123552</td>
+                <td>4.75382840</td>
+                <td>617760</td>
+                <td>11.35500568</td>
+            </tr>
+            <tr>
+                <td>One Pair</td>
+                <td>1098240</td>
+                <td>42.25625240</td>
+                <td>1647360.0</td>
+                <td>30.28001515</td>
+            </tr>
+            <tr>
+                <td>High Card</td>
+                <td>1302540</td>
+                <td>50.11696806</td>
+                <td>0</td>
+                <td>0.00000000</td>
+            </tr>
+        </tbody>
+    </table>
+    <p>RTP: 2.09327434</p>
+</body>
+
+</html>
