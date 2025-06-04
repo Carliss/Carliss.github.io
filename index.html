@@ -3,7 +3,6 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pyramid Side Bet Statistics</title>
     <style>
         table {
@@ -15,108 +14,30 @@
         td {
             border: 1px solid #ddd;
             padding: 8px;
-            text-align: center;
         }
 
         th {
             background-color: #f4f4f4;
         }
+
+        input {
+            width: 100%;
+            padding: 4px;
+            box-sizing: border-box;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
     </style>
 </head>
 
 <body>
-    <h1>Final Statistics</h1>
-    <h2>Empirical</h2>
-    <table>
-        <thead>
-            <tr>
-                <th>Hand</th>
-                <th>Count</th>
-                <th>Probability (%)</th>
-                <th>Payout</th>
-                <th>Payout Probability (%)</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>Royal Flush</td>
-                <td>65</td>
-                <td>0.00012922</td>
-                <td>650000</td>
-                <td>0.62861816</td>
-            </tr>
-            <tr>
-                <td>Straight Flush</td>
-                <td>565</td>
-                <td>0.00112326</td>
-                <td>2825000</td>
-                <td>2.73207125</td>
-            </tr>
-            <tr>
-                <td>Four of a Kind</td>
-                <td>12062</td>
-                <td>0.02398012</td>
-                <td>6031000</td>
-                <td>5.83260945</td>
-            </tr>
-            <tr>
-                <td>Full House</td>
-                <td>72028</td>
-                <td>0.14319682</td>
-                <td>7202800</td>
-                <td>6.96586293</td>
-            </tr>
-            <tr>
-                <td>Flush</td>
-                <td>99110</td>
-                <td>0.19703777</td>
-                <td>7433250</td>
-                <td>7.18873225</td>
-            </tr>
-            <tr>
-                <td>Straight</td>
-                <td>177723</td>
-                <td>0.35332604</td>
-                <td>8886150</td>
-                <td>8.59383891</td>
-            </tr>
-            <tr>
-                <td>Three of a Kind</td>
-                <td>1061638</td>
-                <td>2.11061233</td>
-                <td>26540950</td>
-                <td>25.66788190</td>
-            </tr>
-            <tr>
-                <td>Two Pair</td>
-                <td>2391867</td>
-                <td>4.75520278</td>
-                <td>11959335</td>
-                <td>11.56593107</td>
-            </tr>
-            <tr>
-                <td>One Pair</td>
-                <td>21248612</td>
-                <td>42.24376143</td>
-                <td>31872918.0</td>
-                <td>30.82445409</td>
-            </tr>
-            <tr>
-                <td>High Card</td>
-                <td>25236330</td>
-                <td>50.17163022</td>
-                <td>0</td>
-                <td>0.00000000</td>
-            </tr>
-        </tbody>
-    </table>
-    <p>RTP: 2.05569390</p>
-
+    <h1>Pyramid Side Bet</h1>
     <h2>Theoretical</h2>
     <table>
         <thead>
             <tr>
                 <th>Hand</th>
+                <th>SATS</th>
                 <th>Count</th>
                 <th>Probability (%)</th>
                 <th>Payout</th>
@@ -124,79 +45,112 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>Royal Flush</td>
-                <td>4</td>
-                <td>0.00015391</td>
-                <td>40000</td>
-                <td>0.73523735</td>
-            </tr>
-            <tr>
-                <td>Straight Flush</td>
-                <td>36</td>
-                <td>0.00138515</td>
-                <td>180000</td>
-                <td>3.30856809</td>
-            </tr>
-            <tr>
-                <td>Four of a Kind</td>
-                <td>624</td>
-                <td>0.02400923</td>
-                <td>312000</td>
-                <td>5.73485135</td>
-            </tr>
-            <tr>
-                <td>Full House</td>
-                <td>3744</td>
-                <td>0.14405541</td>
-                <td>374400</td>
-                <td>6.88182162</td>
-            </tr>
-            <tr>
-                <td>Flush</td>
-                <td>5148</td>
-                <td>0.19807618</td>
-                <td>386100</td>
-                <td>7.09687855</td>
-            </tr>
-            <tr>
-                <td>Straight</td>
-                <td>10200</td>
-                <td>0.39245864</td>
-                <td>510000</td>
-                <td>9.37427625</td>
-            </tr>
-            <tr>
-                <td>Three of a Kind</td>
-                <td>54912</td>
-                <td>2.11281262</td>
-                <td>1372800</td>
-                <td>25.23334595</td>
-            </tr>
-            <tr>
-                <td>Two Pair</td>
-                <td>123552</td>
-                <td>4.75382840</td>
-                <td>617760</td>
-                <td>11.35500568</td>
-            </tr>
-            <tr>
-                <td>One Pair</td>
-                <td>1098240</td>
-                <td>42.25625240</td>
-                <td>1647360.0</td>
-                <td>30.28001515</td>
-            </tr>
-            <tr>
-                <td>High Card</td>
-                <td>1302540</td>
-                <td>50.11696806</td>
-                <td>0</td>
-                <td>0.00000000</td>
-            </tr>
+
         </tbody>
     </table>
-    <p>RTP: 2.09327434</p>
+    <p id="rtp">RTP: 2.09327434</p>
+
+    <div>
+        <button id="update" style="
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        ">Click to Update, or enter/return to update</button>
+    </div>
 </body>
+
+
+<script>
+    let hands = [
+        { id: 0, stat: 10000, hand: 'Royal Flush', count: 4, },
+        { id: 1, stat: 5000, hand: 'Straight Flush', count: 36, },
+        { id: 2, stat: 500, hand: 'Four of a Kind', count: 624, },
+        { id: 3, stat: 100, hand: 'Full House', count: 3744, },
+        { id: 4, stat: 75, hand: 'Flush', count: 5148, },
+        { id: 5, stat: 50, hand: 'Straight', count: 10200, },
+        { id: 6, stat: 25, hand: 'Three of a Kind', count: 54912, },
+        { id: 7, stat: 5, hand: 'Two Pair', count: 123552, },
+        { id: 8, stat: 1.5, hand: 'One Pair', count: 1098240, },
+        { id: 9, stat: 0, hand: 'High Card', count: 1302540, }
+    ];
+    const total_counts = hands.reduce((sum, stat) => sum + stat.count, 0);
+    hands = hands.map((hand) => ({
+        ...hand,
+        payout: hand.count * hand.stat,
+        probability: (hand.count / total_counts).toFixed(8),
+        payoutProbability: ((hand.count * hand.stat) / (total_counts * 10000)).toFixed(8)
+    })
+    )
+
+    function update_hands() {
+        hands = hands.map((hand) => ({
+            ...hand,
+            payout: hand.count * hand.stat,
+            probability: (hand.count / total_counts * 100).toFixed(8),
+        }));
+        total_payout = hands.reduce((sum, hand) => sum + hand.payout, 0);
+        hands = hands.map((hand) => ({
+            ...hand,
+            payoutProbability: ((hand.payout) / (total_payout) * 100).toFixed(8)
+        }));
+    }
+
+
+    function calculate_rtp() {
+        const totalPayout = hands.reduce((sum, hand) => sum + (hand.payout), 0);
+        return (totalPayout / total_counts).toFixed(8);
+    }
+
+    function update_html() {
+        const tableBody = document.querySelector('tbody');
+        tableBody.innerHTML = ''; // Clear existing rows
+
+        for (hand of hands) {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${hand.hand}</td >
+                <td>
+                    <input type="number" id="${hand.id}" value="${hand.stat}">
+                </td>
+                <td>${hand.count}</td>
+                <td>${hand.probability}</td>
+                <td>${hand.payout}</td>
+                <td>${hand.payoutProbability}</td>
+            `;
+            tableBody.appendChild(row);
+            const id = hand.id;
+            document.getElementById(hand.id).addEventListener('keypress', (event) => {
+                const newStat = parseFloat(event.target.value);
+
+                if (isNaN(newStat)) {
+                    return
+                }
+                hands[id].stat = newStat;
+                if (event.key === 'Enter' || event.key === 13) {
+                    calculate_and_render();
+                    document.getElementById(id).focus();
+                }
+            });
+        };
+
+        const rtp = calculate_rtp();
+        document.getElementById('rtp').innerText = `RTP: ${rtp}`;
+    }
+
+    function calculate_and_render() {
+        update_hands();
+        update_html();
+    }
+
+    document.getElementById('update').addEventListener('click', () => {
+        calculate_and_render();
+    });
+
+    calculate_and_render();
+</script>
 
 </html>
