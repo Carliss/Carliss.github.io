@@ -48,7 +48,7 @@
 
         </tbody>
     </table>
-    <p id="rtp">RTP: 2.09327434</p>
+    <p id="rtp">RTP: 0.0</p>
 
     <div>
         <button id="update" style="
@@ -67,14 +67,14 @@
 <script>
     let hands = [
         { id: 0, stat: 10000, hand: 'Royal Flush', count: 4, },
-        { id: 1, stat: 5000, hand: 'Straight Flush', count: 36, },
+        { id: 1, stat: 2500, hand: 'Straight Flush', count: 36, },
         { id: 2, stat: 500, hand: 'Four of a Kind', count: 624, },
-        { id: 3, stat: 100, hand: 'Full House', count: 3744, },
-        { id: 4, stat: 75, hand: 'Flush', count: 5148, },
-        { id: 5, stat: 50, hand: 'Straight', count: 10200, },
-        { id: 6, stat: 25, hand: 'Three of a Kind', count: 54912, },
-        { id: 7, stat: 5, hand: 'Two Pair', count: 123552, },
-        { id: 8, stat: 1.5, hand: 'One Pair', count: 1098240, },
+        { id: 3, stat: 50, hand: 'Full House', count: 3744, },
+        { id: 4, stat: 30, hand: 'Flush', count: 5148, },
+        { id: 5, stat: 20, hand: 'Straight', count: 10200, },
+        { id: 6, stat: 8, hand: 'Three of a Kind', count: 54912, },
+        { id: 7, stat: 4, hand: 'Two Pair', count: 123552, },
+        { id: 8, stat: 0.5, hand: 'One Pair', count: 1098240, },
         { id: 9, stat: 0, hand: 'High Card', count: 1302540, }
     ];
     const total_counts = hands.reduce((sum, stat) => sum + stat.count, 0);
