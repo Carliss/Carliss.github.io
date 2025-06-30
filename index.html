@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Pyramid Side Bet Statistics</title>
+    <title>Pyramid Statistics</title>
     <style>
         table {
             width: 100%;
@@ -13,7 +13,8 @@
         th,
         td {
             border: 1px solid #ddd;
-            padding: 8px;
+            padding: 2px;
+            font-size: small;
         }
 
         th {
@@ -31,8 +32,24 @@
 </head>
 
 <body>
-    <h1>Pyramid Side Bet</h1>
-    <h2>Theoretical</h2>
+    <h1>Pyramid</h1>
+    <h2>Empirical</h2>
+    <div>
+        <pre>
+- empty
+A One pair
+B Two pair
+C Three of a kind
+D Straight
+E Flush
+F Full House
+G Four of a kind
+H Straight flush
+I Royal flush
+        </pre>
+    </div>
+    <p class="rtp">RTP: 0.0</p>
+
     <table>
         <thead>
             <tr>
@@ -48,8 +65,8 @@
 
         </tbody>
     </table>
-    <p id="rtp">RTP: 0.0</p>
-
+    <p class="rtp">RTP: 0.0</p>
+    <hr>
     <div>
         <button id="update" style="
             background-color: #4CAF50;
@@ -61,21 +78,63 @@
             font-size: 16px;
         ">Click to Update, or enter/return to update</button>
     </div>
+    <hr>
+    <div>
+        <button id="copy" style="
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        ">Click to copy to clipboard</button>
+    </div>
 </body>
 
 
 <script>
     let hands = [
-        { id: 0, stat: 10000, hand: 'Royal Flush', count: 4, },
-        { id: 1, stat: 2500, hand: 'Straight Flush', count: 36, },
-        { id: 2, stat: 500, hand: 'Four of a Kind', count: 624, },
-        { id: 3, stat: 50, hand: 'Full House', count: 3744, },
-        { id: 4, stat: 30, hand: 'Flush', count: 5148, },
-        { id: 5, stat: 20, hand: 'Straight', count: 10200, },
-        { id: 6, stat: 8, hand: 'Three of a Kind', count: 54912, },
-        { id: 7, stat: 4, hand: 'Two Pair', count: 123552, },
-        { id: 8, stat: 0.5, hand: 'One Pair', count: 1098240, },
-        { id: 9, stat: 0, hand: 'High Card', count: 1302540, }
+        { id: 0, hand: '-', stat: 0, count: 17787555 },
+        { id: 1, hand: 'A', stat: 0, count: 43849200 },
+        { id: 2, hand: 'AB', stat: 0.5, count: 23490874 },
+        { id: 3, hand: 'ABCF', stat: 7, count: 2593886 },
+        { id: 4, hand: 'ABCFG', stat: 100, count: 31275 },
+        { id: 5, hand: 'ABD', stat: 12, count: 169097 },
+        { id: 6, hand: 'ABDH', stat: 100, count: 2443 },
+        { id: 7, hand: 'ABDI', stat: 3000, count: 270 },
+        { id: 8, hand: 'ABE', stat: 12, count: 343320 },
+        { id: 9, hand: 'AC', stat: 4, count: 4831793 },
+        { id: 10, hand: 'ACD', stat: 12, count: 37368 },
+        { id: 11, hand: 'ACDH', stat: 250, count: 396 },
+        { id: 12, hand: 'ACDI', stat: 3000, count: 44 },
+        { id: 13, hand: 'ACE', stat: 12, count: 57039 },
+        { id: 14, hand: 'ACG', stat: 12, count: 137406 },
+        { id: 15, hand: 'AD', stat: 6, count: 1864766 },
+        { id: 16, hand: 'ADE', stat: 25, count: 49137 },
+        { id: 17, hand: 'ADEH', stat: 100, count: 2866 },
+        { id: 18, hand: 'ADEHI', stat: 3000, count: 63 },
+        { id: 19, hand: 'ADEI', stat: 1, count: 279 },
+        { id: 20, hand: 'ADH', stat: 25, count: 9788 },
+        { id: 21, hand: 'ADI', stat: 3000, count: 962 },
+        { id: 22, hand: 'AE', stat: 6, count: 1505974 },
+        { id: 23, hand: 'AEH', stat: 25, count: 488 },
+        { id: 24, hand: 'AEI', stat: 250, count: 105 },
+        { id: 25, hand: 'AH', stat: 25, count: 479 },
+        { id: 26, hand: 'AI', stat: 250, count: 200 },
+        { id: 27, hand: 'D', stat: 6, count: 2150363 },
+        { id: 28, hand: 'DE', stat: 12, count: 105257 },
+        { id: 29, hand: 'DEH', stat: 1, count: 1081 },
+        { id: 30, hand: 'DEHI', stat: 50000, count: 7 },
+        { id: 31, hand: 'DEI', stat: 50000, count: 56 },
+        { id: 32, hand: 'DH', stat: 25, count: 2952 },
+        { id: 33, hand: 'DI', stat: 3000, count: 184 },
+        { id: 34, hand: 'E', stat: 6, count: 965990 },
+        { id: 35, hand: 'EH', stat: 25, count: 3374 },
+        { id: 36, hand: 'EHI', stat: 3000, count: 80 },
+        { id: 37, hand: 'EI', stat: 250, count: 491 },
+        { id: 38, hand: 'H', stat: 25, count: 3844 },
+        { id: 39, hand: 'I', stat: 250, count: 608 },
     ];
     const total_counts = hands.reduce((sum, stat) => sum + stat.count, 0);
     hands = hands.map((hand) => ({
@@ -142,7 +201,9 @@
         };
 
         const rtp = calculate_rtp();
-        document.getElementById('rtp').innerText = `RTP: ${rtp}`;
+        for (const el of document.querySelectorAll('.rtp')) {
+            el.innerText = `RTP: ${rtp}`;
+        };
     }
 
     function calculate_and_render() {
@@ -152,6 +213,22 @@
 
     document.getElementById('update').addEventListener('click', () => {
         calculate_and_render();
+    });
+
+    function copy_table() {
+        let copy_text = '';
+        for (hand of hands) {
+            copy_text += `${hand.hand} => ${hand.stat}\n`;
+        }
+        navigator.clipboard.writeText(copy_text).then(() => {
+            alert('Copied to clipboard');
+        }).catch(err => {
+            console.error('Failed to copy: ', err);
+        });
+    }
+
+    document.getElementById('copy').addEventListener('click', () => {
+        copy_table();
     });
 
     calculate_and_render();
