@@ -49,7 +49,14 @@ I Royal flush
         </pre>
     </div>
     <p class="rtp">RTP: 0.0</p>
-
+    <hr>
+    <div><button id="reset">reset to default values</button></div>
+    <hr>
+    <div>
+        <button style="padding-right: 5px" id="copy">Click to copy to clipboard</button>
+        <button id="paste">Click to paste from clipboard</button>
+    </div>
+    <hr>
     <table>
         <thead>
             <tr>
@@ -67,83 +74,76 @@ I Royal flush
     </table>
     <p class="rtp">RTP: 0.0</p>
     <hr>
-    <div>
-        <button id="update" style="
-            background-color: #4CAF50;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 16px;
-        ">Click to Update, or enter/return to update</button>
-    </div>
-    <hr>
-    <div>
-        <button id="copy" style="
-            background-color: #4CAF50;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 16px;
-        ">Click to copy to clipboard</button>
-    </div>
 </body>
 
 
 <script>
-    let hands = [
-        { id: 0, hand: '-', stat: 0, count: 1740463 },
-        { id: 1, hand: 'A', stat: 0, count: 4383825 },
-        { id: 2, hand: 'AB', stat: 0.5, count: 2351482 },
-        { id: 3, hand: 'ABCF', stat: 7, count: 258790 },
-        { id: 4, hand: 'ABCFG', stat: 100, count: 3150 },
-        { id: 5, hand: 'ABD', stat: 12, count: 16939 },
-        { id: 6, hand: 'ABDH', stat: 100, count: 255 },
-        { id: 7, hand: 'ABDI', stat: 3000, count: 31 },
-        { id: 8, hand: 'ABE', stat: 12, count: 34339 },
-        { id: 9, hand: 'AC', stat: 4, count: 482286 },
-        { id: 10, hand: 'ACD', stat: 12, count: 3789 },
-        { id: 11, hand: 'ACDH', stat: 250, count: 44 },
-        { id: 12, hand: 'ACDI', stat: 3000, count: 5 },
-        { id: 13, hand: 'ACE', stat: 12, count: 5703 },
-        { id: 14, hand: 'ACG', stat: 12, count: 13914 },
-        { id: 15, hand: 'AD', stat: 6, count: 189064 },
-        { id: 16, hand: 'ADE', stat: 25, count: 4983 },
-        { id: 17, hand: 'ADEH', stat: 100, count: 282 },
-        { id: 18, hand: 'ADEHI', stat: 3000, count: 10 },
-        { id: 19, hand: 'ADEI', stat: 1, count: 34 },
-        { id: 20, hand: 'ADH', stat: 25, count: 995 },
-        { id: 21, hand: 'ADI', stat: 3000, count: 87 },
-        { id: 22, hand: 'AE', stat: 6, count: 150620 },
-        { id: 23, hand: 'AEH', stat: 25, count: 47 },
-        { id: 24, hand: 'AEI', stat: 250, count: 7 },
-        { id: 25, hand: 'AH', stat: 25, count: 54 },
-        { id: 26, hand: 'AI', stat: 250, count: 6 },
-        { id: 27, hand: 'D', stat: 6, count: 250656 },
-        { id: 28, hand: 'DE', stat: 12, count: 12175 },
-        { id: 29, hand: 'DEH', stat: 1, count: 113 },
-        { id: 30, hand: 'DEHI', stat: 50000, count: 0 },
-        { id: 31, hand: 'DEI', stat: 50000, count: 8 },
-        { id: 32, hand: 'DH', stat: 25, count: 291 },
-        { id: 33, hand: 'DI', stat: 3000, count: 20 },
-        { id: 34, hand: 'E', stat: 6, count: 94817 },
-        { id: 35, hand: 'EH', stat: 25, count: 386 },
-        { id: 36, hand: 'EHI', stat: 3000, count: 10 },
-        { id: 37, hand: 'EI', stat: 250, count: 35 },
-        { id: 38, hand: 'H', stat: 25, count: 374 },
-        { id: 39, hand: 'I', stat: 250, count: 58 },
+    const pyramid_key = '2025-07-01';  // update to invalidate localstorage
+    let hands = [];
+    let default_hands = [
+        { id: 0, hand: '-', stat: 0, count: 17427615 },
+        { id: 1, hand: 'A', stat: 0, count: 43822618 },
+        { id: 2, hand: 'AB', stat: 0.5, count: 23490879 },
+        { id: 3, hand: 'ABCF', stat: 4, count: 2593887 },
+        { id: 4, hand: 'ABCFG', stat: 100, count: 31275 },
+        { id: 5, hand: 'ABD', stat: 12, count: 169097 },
+        { id: 6, hand: 'ABDH', stat: 100, count: 2443 },
+        { id: 7, hand: 'ABDI', stat: 3000, count: 270 },
+        { id: 8, hand: 'ABE', stat: 12, count: 343320 },
+        { id: 9, hand: 'AC', stat: 2, count: 4831795 },
+        { id: 10, hand: 'ACD', stat: 100, count: 37368 },
+        { id: 11, hand: 'ACDH', stat: 250, count: 396 },
+        { id: 12, hand: 'ACDI', stat: 20000, count: 44 },
+        { id: 13, hand: 'ACE', stat: 25, count: 57039 },
+        { id: 14, hand: 'ACG', stat: 12, count: 137406 },
+        { id: 15, hand: 'AD', stat: 4, count: 1891369 },
+        { id: 16, hand: 'ADE', stat: 25, count: 49899 },
+        { id: 17, hand: 'ADEH', stat: 100, count: 2866 },
+        { id: 18, hand: 'ADEHI', stat: 20000, count: 63 },
+        { id: 19, hand: 'ADEI', stat: 3000, count: 318 },
+        { id: 20, hand: 'ADH', stat: 100, count: 9788 },
+        { id: 21, hand: 'ADI', stat: 250, count: 1102 },
+        { id: 22, hand: 'AE', stat: 4, count: 1505212 },
+        { id: 23, hand: 'AEH', stat: 250, count: 488 },
+        { id: 24, hand: 'AEI', stat: 20000, count: 66 },
+        { id: 25, hand: 'AH', stat: 250, count: 479 },
+        { id: 26, hand: 'AI', stat: 20000, count: 60 },
+        { id: 27, hand: 'D', stat: 4, count: 2510321 },
+        { id: 28, hand: 'DE', stat: 12, count: 122924 },
+        { id: 29, hand: 'DEH', stat: 250, count: 1089 },
+        { id: 30, hand: 'DEHI', stat: 50000, count: 7 },
+        { id: 31, hand: 'DEI', stat: 20000, count: 65 },
+        { id: 32, hand: 'DH', stat: 100, count: 2975 },
+        { id: 33, hand: 'DI', stat: 5000, count: 213 },
+        { id: 34, hand: 'E', stat: 6, count: 948323 },
+        { id: 35, hand: 'EH', stat: 100, count: 3366 },
+        { id: 36, hand: 'EHI', stat: 5000, count: 80 },
+        { id: 37, hand: 'EI', stat: 3000, count: 482 },
+        { id: 38, hand: 'H', stat: 100, count: 3821 },
+        { id: 39, hand: 'I', stat: 250, count: 579 },
     ];
-    const total_counts = hands.reduce((sum, stat) => sum + stat.count, 0);
-    hands = hands.map((hand) => ({
+
+    const total_counts = default_hands.reduce((sum, stat) => sum + stat.count, 0);
+    default_hands = default_hands.map((hand) => ({
         ...hand,
         payout: hand.count * hand.stat,
         probability: (hand.count / total_counts).toFixed(8),
         payoutProbability: ((hand.count * hand.stat) / (total_counts * 10000)).toFixed(8)
     })
     )
+
+    function saveLocalStorage() {
+        localStorage.setItem(pyramid_key, JSON.stringify(hands));
+    }
+
+    if (localStorage.getItem(pyramid_key)) {
+        hands = JSON.parse(localStorage.getItem(pyramid_key));
+    } else {
+        hands = JSON.parse(JSON.stringify(default_hands));
+        saveLocalStorage();
+    }
+
+
 
     function update_hands() {
         hands = hands.map((hand) => ({
@@ -209,11 +209,8 @@ I Royal flush
     function calculate_and_render() {
         update_hands();
         update_html();
+        saveLocalStorage();
     }
-
-    document.getElementById('update').addEventListener('click', () => {
-        calculate_and_render();
-    });
 
     function copy_table() {
         let copy_text = '';
@@ -227,8 +224,36 @@ I Royal flush
         });
     }
 
+    function paste() {
+        navigator.clipboard.readText().then(text => {
+            const lines = text.split('\n').filter(line => line.trim() !== '');
+            lines.forEach(line => {
+                console.log(line);
+
+                const [hand, stat] = line.split('=>').map(part => part.trim());
+                const handObj = hands.find(h => h.hand === hand);
+                if (handObj) {
+                    handObj.stat = parseFloat(stat);
+                }
+            });
+            calculate_and_render();
+        }).catch(err => {
+            console.error('Failed to read clipboard contents: ', err);
+        });
+    }
+
+    document.getElementById('paste').addEventListener('click', () => {
+        paste();
+    });
+
     document.getElementById('copy').addEventListener('click', () => {
         copy_table();
+    });
+
+    document.getElementById('reset').addEventListener('click', () => {
+        localStorage.removeItem(pyramid_key);
+        hands = JSON.parse(JSON.stringify(default_hands));
+        calculate_and_render();
     });
 
     calculate_and_render();
