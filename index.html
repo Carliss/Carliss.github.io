@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Pyramid Statistics</title>
+    <title>Gold Rush Statistics</title>
     <style>
         table {
             width: 100%;
@@ -32,22 +32,7 @@
 </head>
 
 <body>
-    <h1>Pyramid</h1>
-    <h2>Empirical</h2>
-    <div>
-        <pre>
-- empty
-A One pair
-B Two pair
-C Three of a kind
-D Straight
-E Flush
-F Full House
-G Four of a kind
-H Straight flush
-I Royal flush
-        </pre>
-    </div>
+    <h1>Gold Rush</h1>
     <p class="rtp">RTP: 0.0</p>
     <hr>
     <div><button id="reset">reset to default values</button></div>
@@ -78,49 +63,42 @@ I Royal flush
 
 
 <script>
-    const pyramid_key = '2025-07-01';  // update to invalidate localstorage
+    const cache_key = '2025-08-06';  // update to invalidate localstorage
     let hands = [];
     let default_hands = [
-        { id: 0, hand: '-', stat: 0, count: 17427615 },
-        { id: 1, hand: 'A', stat: 0, count: 43822618 },
-        { id: 2, hand: 'AB', stat: 0.5, count: 23490879 },
-        { id: 3, hand: 'ABCF', stat: 4, count: 2593887 },
-        { id: 4, hand: 'ABCFG', stat: 100, count: 31275 },
-        { id: 5, hand: 'ABD', stat: 12, count: 169097 },
-        { id: 6, hand: 'ABDH', stat: 100, count: 2443 },
-        { id: 7, hand: 'ABDI', stat: 3000, count: 270 },
-        { id: 8, hand: 'ABE', stat: 12, count: 343320 },
-        { id: 9, hand: 'AC', stat: 2, count: 4831795 },
-        { id: 10, hand: 'ACD', stat: 100, count: 37368 },
-        { id: 11, hand: 'ACDH', stat: 250, count: 396 },
-        { id: 12, hand: 'ACDI', stat: 20000, count: 44 },
-        { id: 13, hand: 'ACE', stat: 25, count: 57039 },
-        { id: 14, hand: 'ACG', stat: 12, count: 137406 },
-        { id: 15, hand: 'AD', stat: 4, count: 1891369 },
-        { id: 16, hand: 'ADE', stat: 25, count: 49899 },
-        { id: 17, hand: 'ADEH', stat: 100, count: 2866 },
-        { id: 18, hand: 'ADEHI', stat: 20000, count: 63 },
-        { id: 19, hand: 'ADEI', stat: 3000, count: 318 },
-        { id: 20, hand: 'ADH', stat: 100, count: 9788 },
-        { id: 21, hand: 'ADI', stat: 250, count: 1102 },
-        { id: 22, hand: 'AE', stat: 4, count: 1505212 },
-        { id: 23, hand: 'AEH', stat: 250, count: 488 },
-        { id: 24, hand: 'AEI', stat: 20000, count: 66 },
-        { id: 25, hand: 'AH', stat: 250, count: 479 },
-        { id: 26, hand: 'AI', stat: 20000, count: 60 },
-        { id: 27, hand: 'D', stat: 4, count: 2510321 },
-        { id: 28, hand: 'DE', stat: 12, count: 122924 },
-        { id: 29, hand: 'DEH', stat: 250, count: 1089 },
-        { id: 30, hand: 'DEHI', stat: 50000, count: 7 },
-        { id: 31, hand: 'DEI', stat: 20000, count: 65 },
-        { id: 32, hand: 'DH', stat: 100, count: 2975 },
-        { id: 33, hand: 'DI', stat: 5000, count: 213 },
-        { id: 34, hand: 'E', stat: 6, count: 948323 },
-        { id: 35, hand: 'EH', stat: 100, count: 3366 },
-        { id: 36, hand: 'EHI', stat: 5000, count: 80 },
-        { id: 37, hand: 'EI', stat: 3000, count: 482 },
-        { id: 38, hand: 'H', stat: 100, count: 3821 },
-        { id: 39, hand: 'I', stat: 250, count: 579 },
+        { id: 0, hand: 'A) 123456789 ( alle blitt til gulbarrer)', stat: 1, count: 406205 },
+        { id: 1, hand: 'A) 1 100- 119 oppnådd i sum', stat: 1, count: 406205 },
+        { id: 2, hand: 'A) 2 eksakt 120 oppnådd i sum', stat: 1, count: 0 },
+        { id: 3, hand: 'A) 3 eksakt 49 oppnådd i sum', stat: 1, count: 1193 },
+        { id: 4, hand: 'B) 1 linjer under 49', stat: 1, count: 27947692 },
+        { id: 5, hand: 'B) 2 linjer under 49', stat: 1, count: 12026866 },
+        { id: 6, hand: 'B) 3 linjer under 49', stat: 1, count: 4248081 },
+        { id: 7, hand: 'B) 4 linjer under 49', stat: 1, count: 992252 },
+        { id: 8, hand: 'B) 5 linjer under 49', stat: 1, count: 236258 },
+        { id: 9, hand: 'B) 6 linjer under 49', stat: 1, count: 86928 },
+        { id: 10, hand: 'B) 7 linjer under 49', stat: 1, count: 0 },
+        { id: 11, hand: 'B) 8 linjer under 49', stat: 1, count: 3541 },
+        { id: 12, hand: 'C) 1 linjer eksakt 49', stat: 1, count: 645244 },
+        { id: 13, hand: 'C) 2 linjer eksakt 49', stat: 1, count: 729792 },
+        { id: 14, hand: 'C) 3 linjer eksakt 49', stat: 1, count: 444161 },
+        { id: 15, hand: 'C) 4 linjer eksakt 49', stat: 1, count: 153374 },
+        { id: 16, hand: 'C) 5 linjer eksakt 49', stat: 1, count: 43183 },
+        { id: 17, hand: 'C) 6 linjer eksakt 49', stat: 1, count: 19967 },
+        { id: 18, hand: 'C) 7 linjer eksakt 49', stat: 1, count: 0 },
+        { id: 19, hand: 'C) 8 linjer eksakt 49', stat: 1, count: 1193 },
+        { id: 20, hand: 'D) 1 linjer med 50 eller mer', stat: 1, count: 3546845 },
+        { id: 21, hand: 'D) 2 linjer med 50 eller mer', stat: 1, count: 6209281 },
+        { id: 22, hand: 'D) 3 linjer med 50 eller mer', stat: 1, count: 6737748 },
+        { id: 23, hand: 'D) 4 linjer med 50 eller mer', stat: 1, count: 3745192 },
+        { id: 24, hand: 'D) 5 linjer med 50 eller mer', stat: 1, count: 1984925 },
+        { id: 25, hand: 'D) 6 linjer med 50 eller mer', stat: 1, count: 1562672 },
+        { id: 26, hand: 'D) 7 linjer med 50 eller mer', stat: 1, count: 0 },
+        { id: 27, hand: 'D) 8 linjer med 50 eller mer', stat: 1, count: 401471 },
+        { id: 28, hand: 'E) 0 linjer med 49 eller mer', stat: 1, count: 610300 },
+        { id: 29, hand: 'E) 1 linjer med 49 eller mer', stat: 1, count: 4192089 },
+        { id: 30, hand: 'E) 2 linjer med 49 eller mer', stat: 1, count: 6939073 },
+        { id: 31, hand: 'F) Over 100 uavhengig av antall linjer', stat: 1, count: 1050 },
+        { id: 32, hand: 'G) 0 linjer - og eksakt 49', stat: 1, count: 134187 },
     ];
 
     const total_counts = default_hands.reduce((sum, stat) => sum + stat.count, 0);
@@ -133,11 +111,11 @@ I Royal flush
     )
 
     function saveLocalStorage() {
-        localStorage.setItem(pyramid_key, JSON.stringify(hands));
+        localStorage.setItem(cache_key, JSON.stringify(hands));
     }
 
-    if (localStorage.getItem(pyramid_key)) {
-        hands = JSON.parse(localStorage.getItem(pyramid_key));
+    if (localStorage.getItem(cache_key)) {
+        hands = JSON.parse(localStorage.getItem(cache_key));
     } else {
         hands = JSON.parse(JSON.stringify(default_hands));
         saveLocalStorage();
@@ -251,7 +229,7 @@ I Royal flush
     });
 
     document.getElementById('reset').addEventListener('click', () => {
-        localStorage.removeItem(pyramid_key);
+        localStorage.removeItem(cache_key);
         hands = JSON.parse(JSON.stringify(default_hands));
         calculate_and_render();
     });
