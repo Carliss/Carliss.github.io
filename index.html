@@ -45,12 +45,12 @@
     <table>
         <thead>
             <tr>
-                <th>Hand</th>
-                <th>Payout Ratio</th>
-                <th>Count</th>
-                <th>Probability (%)</th>
-                <th>Payout</th>
-                <th>Payout Probability (%)</th>
+                <th id="th-id">Hand</th>
+                <th id="th-stat">Payout Ratio</th>
+                <th id="th-count">Count</th>
+                <th id="th-probability">Probability (%)</th>
+                <th id="th-payout">Payout</th>
+                <th id="th-payoutProbability">Payout Probability (%)</th>
             </tr>
         </thead>
         <tbody>
@@ -63,6 +63,7 @@
 
 
 <script>
+
     const cache_key = '2025-08-06';  // update to invalidate localstorage
     let hands = [];
     let default_hands = [
@@ -142,11 +143,59 @@
         return (totalPayout / total_counts).toFixed(8);
     }
 
+    // for table sorting
+    const ths_object = {
+        'th-id': 1, // default to ascending order for 'Hand'
+        'th-stat': 0,
+        'th-count': 0,
+        'th-probability': 0,
+        'th-payout': 0,
+        'th-payoutProbability': 0,
+    };
+    const ths = Object.keys(ths_object);
+
+    for (let th of ths) {
+        document.getElementById(th).addEventListener('click', () => {
+            console.log(`Column ${th} clicked. Current sort order: ${ths_object[th]}`);
+
+            ths.forEach((t) => {
+                if (t !== th) {
+                    ths_object[t] = 0; // reset other ths
+                }
+            });
+            if (ths_object[th] !== 1) {
+                ths_object[th] = 1; // ascending
+                console.log(`Column ${th} set to ascending order.`);
+            } else {
+                ths_object[th] = -1; // descending
+                console.log(`Column ${th} set to descending order.`);
+            }
+            calculate_and_render();
+        });
+    }
+
+    function sort_rows(rows) {
+        // get current ths
+        const current_th = ths.find(th => ths_object[th] !== 0);
+        if (!current_th) {
+            return rows; // No sorting applied
+        }
+        const sortOrder = ths_object[current_th];
+        if (sortOrder === 0) {
+            return rows; // No sorting applied
+        }
+        return rows.sort((a, b) => {
+            const aValue = parseFloat(a[current_th.replace('th-', '')]);
+            const bValue = parseFloat(b[current_th.replace('th-', '')]);
+            return sortOrder * (aValue - bValue);
+        });
+    }
+
     function update_html() {
         const tableBody = document.querySelector('tbody');
         tableBody.innerHTML = ''; // Clear existing rows
 
-        for (hand of hands) {
+        for (hand of sort_rows(hands)) {
             const row = document.createElement('tr');
             row.innerHTML = `
                 <td>${hand.hand}</td >
@@ -166,7 +215,7 @@
                 if (isNaN(newStat)) {
                     return
                 }
-                hands[id].stat = newStat;
+                hands.filter(h => h.id === id)[0].stat = newStat;
                 if (event.key === 'Enter' || event.key === 13) {
                     calculate_and_render();
                     document.getElementById(id).focus();
