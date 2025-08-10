@@ -46,7 +46,7 @@
         <thead>
             <tr>
                 <th id="th-id">Hand</th>
-                <th id="th-stat">Payout Ratio</th>
+                <th id="th-sats">Payout Ratio</th>
                 <th id="th-count">Count</th>
                 <th id="th-probability">Probability (%)</th>
                 <th id="th-payout">Payout</th>
@@ -64,50 +64,44 @@
 
 <script>
 
-    const cache_key = '2025-08-06';  // update to invalidate localstorage
+    const cache_key = '2025-08-10';  // update to invalidate localstorage
     let hands = [];
     let default_hands = [
-        { id: 0, hand: 'A) 123456789 ( alle blitt til gulbarrer)', stat: 1, count: 411536 },
-        { id: 1, hand: 'A) 1 100- 119 oppnådd i sum', stat: 1, count: 1403 },
-        { id: 2, hand: 'A) 2 eksakt 120 oppnådd i sum', stat: 1, count: 0 },
-        { id: 3, hand: 'A) 3 eksakt 49 oppnådd i sum', stat: 1, count: 1353 },
-        { id: 4, hand: 'B) 1 linjer under 49', stat: 1, count: 27941215 },
-        { id: 5, hand: 'B) 2 linjer under 49', stat: 1, count: 12018339 },
-        { id: 6, hand: 'B) 3 linjer under 49', stat: 1, count: 4329236 },
-        { id: 7, hand: 'B) 4 linjer under 49', stat: 1, count: 1063880 },
-        { id: 8, hand: 'B) 5 linjer under 49', stat: 1, count: 250281 },
-        { id: 9, hand: 'B) 6 linjer under 49', stat: 1, count: 102903 },
-        { id: 10, hand: 'B) 7 linjer under 49', stat: 1, count: 0 },
-        { id: 11, hand: 'B) 8 linjer under 49', stat: 1, count: 4465 },
-        { id: 12, hand: 'C) 1 linjer eksakt 49', stat: 1, count: 652667 },
-        { id: 13, hand: 'C) 2 linjer eksakt 49', stat: 1, count: 729515 },
-        { id: 14, hand: 'C) 3 linjer eksakt 49', stat: 1, count: 437655 },
-        { id: 15, hand: 'C) 4 linjer eksakt 49', stat: 1, count: 158018 },
-        { id: 16, hand: 'C) 5 linjer eksakt 49', stat: 1, count: 43782 },
-        { id: 17, hand: 'C) 6 linjer eksakt 49', stat: 1, count: 22715 },
-        { id: 18, hand: 'C) 7 linjer eksakt 49', stat: 1, count: 0 },
-        { id: 19, hand: 'C) 8 linjer eksakt 49', stat: 1, count: 1353 },
-        { id: 20, hand: 'D) 1 linjer med 50 eller mer', stat: 1, count: 3628695 },
-        { id: 21, hand: 'D) 2 linjer med 50 eller mer', stat: 1, count: 6280014 },
-        { id: 22, hand: 'D) 3 linjer med 50 eller mer', stat: 1, count: 6680131 },
-        { id: 23, hand: 'D) 4 linjer med 50 eller mer', stat: 1, count: 3706577 },
-        { id: 24, hand: 'D) 5 linjer med 50 eller mer', stat: 1, count: 1970054 },
-        { id: 25, hand: 'D) 6 linjer med 50 eller mer', stat: 1, count: 1559013 },
-        { id: 26, hand: 'D) 7 linjer med 50 eller mer', stat: 1, count: 0 },
-        { id: 27, hand: 'D) 8 linjer med 50 eller mer', stat: 1, count: 405718 },
-        { id: 28, hand: 'E) 0 linjer med 49 eller mer', stat: 1, count: 631563 },
-        { id: 29, hand: 'E) 1 linjer med 49 eller mer', stat: 1, count: 4281362 },
-        { id: 30, hand: 'E) 2 linjer med 49 eller mer', stat: 1, count: 7009529 },
-        { id: 31, hand: 'F) Over 100 uavhengig av antall linjer', stat: 1, count: 1073 },
-        { id: 32, hand: 'G) 0 linjer - og eksakt 49', stat: 1, count: 135946 },
+        { id: 0, hand: "A0) 0 lines - sum is less than 49", sats: 0, count: 2854505 },
+        { id: 1, hand: "A1) 1 lines - sum is less than 49", sats: 0, count: 2798145 },
+        { id: 2, hand: "A2) 2 lines - sum is less than 49", sats: 0.5, count: 1174930 },
+        { id: 3, hand: "A3) 3 lines - sum is less than 49", sats: 1, count: 408230 },
+        { id: 4, hand: "A4) 4 lines - sum is less than 49", sats: 2, count: 99079 },
+        { id: 5, hand: "A5) 5 lines - sum is less than 49", sats: 5, count: 20360 },
+        { id: 6, hand: "A6) 6 lines - sum is less than 49", sats: 10, count: 8230 },
+        { id: 7, hand: "A7) 7 lines - sum is less than 49", sats: 0, count: 0 },
+        { id: 8, hand: "A8) 8 lines - sum is less than 49", sats: 100, count: 332 },
+        { id: 9, hand: "B0) 0 lines - sum is 49", sats: 1, count: 17653 },
+        { id: 10, hand: "B1) 1 lines - sum is 49", sats: 2, count: 71308 },
+        { id: 11, hand: "B2) 2 lines - sum is 49", sats: 4, count: 71394 },
+        { id: 12, hand: "B3) 3 lines - sum is 49", sats: 8, count: 41576 },
+        { id: 13, hand: "B4) 4 lines - sum is 49", sats: 16, count: 14924 },
+        { id: 14, hand: "B5) 5 lines - sum is 49", sats: 32, count: 3534 },
+        { id: 15, hand: "B6) 6 lines - sum is 49", sats: 64, count: 1862 },
+        { id: 16, hand: "B7) 7 lines - sum is 49", sats: 0, count: 0 },
+        { id: 17, hand: "B8) 8 lines - sum is 49", sats: 100, count: 102 },
+        { id: 18, hand: "C0) 0 lines - sum is 50 or more", sats: 0, count: 65164 },
+        { id: 19, hand: "C1) 1 lines - sum is 50 or more", sats: 0, count: 412209 },
+        { id: 20, hand: "C2) 2 lines - sum is 50 or more", sats: 0.5, count: 620776 },
+        { id: 21, hand: "C3) 3 lines - sum is 50 or more", sats: 1, count: 645771 },
+        { id: 22, hand: "C4) 4 lines - sum is 50 or more", sats: 2, count: 346784 },
+        { id: 23, hand: "C5) 5 lines - sum is 50 or more", sats: 5, count: 164328 },
+        { id: 24, hand: "C6) 6 lines - sum is 50 or more", sats: 10, count: 129355 },
+        { id: 25, hand: "C7) 7 lines - sum is 50 or more", sats: 0, count: 0 },
+        { id: 26, hand: "C8) 8 lines - sum is 50 or more", sats: 100, count: 29449 },
     ];
 
-    const total_counts = default_hands.reduce((sum, stat) => sum + stat.count, 0);
+    const total_counts = default_hands.reduce((sum, sats) => sum + sats.count, 0);
     default_hands = default_hands.map((hand) => ({
         ...hand,
-        payout: hand.count * hand.stat,
+        payout: hand.count * hand.sats,
         probability: (hand.count / total_counts).toFixed(8),
-        payoutProbability: ((hand.count * hand.stat) / (total_counts * 10000)).toFixed(8)
+        payoutProbability: ((hand.count * hand.sats) / (total_counts * 10000)).toFixed(8)
     })
     )
 
@@ -127,7 +121,7 @@
     function update_hands() {
         hands = hands.map((hand) => ({
             ...hand,
-            payout: hand.count * hand.stat,
+            payout: hand.count * hand.sats,
             probability: (hand.count / total_counts * 100).toFixed(8),
         }));
         total_payout = hands.reduce((sum, hand) => sum + hand.payout, 0);
@@ -146,7 +140,7 @@
     // for table sorting
     const ths_object = {
         'th-id': 1, // default to ascending order for 'Hand'
-        'th-stat': 0,
+        'th-sats': 0,
         'th-count': 0,
         'th-probability': 0,
         'th-payout': 0,
@@ -200,7 +194,7 @@
             row.innerHTML = `
                 <td>${hand.hand}</td >
                 <td>
-                    <input type="number" id="${hand.id}" value="${hand.stat}">
+                    <input type="number" id="${hand.id}" value="${hand.sats}">
                 </td>
                 <td>${hand.count}</td>
                 <td>${hand.probability}</td>
@@ -210,12 +204,12 @@
             tableBody.appendChild(row);
             const id = hand.id;
             document.getElementById(hand.id).addEventListener('keypress', (event) => {
-                const newStat = parseFloat(event.target.value);
+                const newSats = parseFloat(event.target.value);
 
-                if (isNaN(newStat)) {
+                if (isNaN(newSats)) {
                     return
                 }
-                hands.filter(h => h.id === id)[0].stat = newStat;
+                hands.filter(h => h.id === id)[0].sats = newSats;
                 if (event.key === 'Enter' || event.key === 13) {
                     calculate_and_render();
                     document.getElementById(id).focus();
@@ -242,7 +236,7 @@
     function copy_table() {
         let copy_text = '';
         for (hand of hands) {
-            copy_text += `${hand.hand} => ${hand.stat}\n`;
+            copy_text += `${hand.hand} => ${hand.sats}\n`;
         }
         navigator.clipboard.writeText(copy_text).then(() => {
             alert('Copied to clipboard');
@@ -257,10 +251,10 @@
             lines.forEach(line => {
                 console.log(line);
 
-                const [hand, stat] = line.split('=>').map(part => part.trim());
+                const [hand, sats] = line.split('=>').map(part => part.trim());
                 const handObj = hands.find(h => h.hand === hand);
                 if (handObj) {
-                    handObj.stat = parseFloat(stat);
+                    handObj.sats = parseFloat(sats);
                 }
             });
             calculate_and_render();
