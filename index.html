@@ -33,13 +33,41 @@
 
 <body>
     <h1>Gold Rush</h1>
+    <div>
+        <pre>
+
+     5 6 7
+  4  ♣ B ♥  8
+3 ♦  7 8 9  ♠
+2 R  6 1 2  R
+1 ♥  5 4 3  ♣
+     ♠ B ♦
+
+A = sum of matches is under 49
+B = sum of matches is 49
+C = sum of matches is over 49
+
+&lt;num&gt; = number of matching lines
+
+Z = one of the matching lines is three aces
+X = one of the matching lines is three of a kind
+
+e.g
+  C8X means that the sum of matches is over 49, there are 8 matching lines,
+  and at least one of the lines has three of a kind but not three aces.
+        </pre>
+    </div>
     <p class="rtp">RTP: 0.0</p>
     <hr>
-    <div><button id="reset">reset to default values</button></div>
-    <hr>
+
     <div>
         <button style="padding-right: 5px" id="copy">Click to copy to clipboard</button>
         <button id="paste">Click to paste from clipboard</button>
+        <span>
+            <span style="background-color: red;">red</span> means that the table is not updated
+        </span>
+        <button id="update">Click to update</button>
+        <span> or press enter on an input</span>
     </div>
     <hr>
     <table>
@@ -59,41 +87,63 @@
     </table>
     <p class="rtp">RTP: 0.0</p>
     <hr>
+    <div>
+        <div><button id="reset">reset to default values</button></div>
+        <hr>
+    </div>
 </body>
 
 
 <script>
 
-    const cache_key = '2025-08-10';  // update to invalidate localstorage
+    const cache_key = '2025-08-20';  // update to invalidate localstorage
     let hands = [];
     let default_hands = [
-        { id: 0, hand: "A0) 0 lines - sum is less than 49", sats: 0, count: 2854505 },
-        { id: 1, hand: "A1) 1 lines - sum is less than 49", sats: 0, count: 2798145 },
-        { id: 2, hand: "A2) 2 lines - sum is less than 49", sats: 0.5, count: 1174930 },
-        { id: 3, hand: "A3) 3 lines - sum is less than 49", sats: 1, count: 408230 },
-        { id: 4, hand: "A4) 4 lines - sum is less than 49", sats: 2, count: 99079 },
-        { id: 5, hand: "A5) 5 lines - sum is less than 49", sats: 5, count: 20360 },
-        { id: 6, hand: "A6) 6 lines - sum is less than 49", sats: 10, count: 8230 },
-        { id: 7, hand: "A7) 7 lines - sum is less than 49", sats: 0, count: 0 },
-        { id: 8, hand: "A8) 8 lines - sum is less than 49", sats: 100, count: 332 },
-        { id: 9, hand: "B0) 0 lines - sum is 49", sats: 1, count: 17653 },
-        { id: 10, hand: "B1) 1 lines - sum is 49", sats: 2, count: 71308 },
-        { id: 11, hand: "B2) 2 lines - sum is 49", sats: 4, count: 71394 },
-        { id: 12, hand: "B3) 3 lines - sum is 49", sats: 8, count: 41576 },
-        { id: 13, hand: "B4) 4 lines - sum is 49", sats: 16, count: 14924 },
-        { id: 14, hand: "B5) 5 lines - sum is 49", sats: 32, count: 3534 },
-        { id: 15, hand: "B6) 6 lines - sum is 49", sats: 64, count: 1862 },
-        { id: 16, hand: "B7) 7 lines - sum is 49", sats: 0, count: 0 },
-        { id: 17, hand: "B8) 8 lines - sum is 49", sats: 100, count: 102 },
-        { id: 18, hand: "C0) 0 lines - sum is 50 or more", sats: 0, count: 65164 },
-        { id: 19, hand: "C1) 1 lines - sum is 50 or more", sats: 0, count: 412209 },
-        { id: 20, hand: "C2) 2 lines - sum is 50 or more", sats: 0.5, count: 620776 },
-        { id: 21, hand: "C3) 3 lines - sum is 50 or more", sats: 1, count: 645771 },
-        { id: 22, hand: "C4) 4 lines - sum is 50 or more", sats: 2, count: 346784 },
-        { id: 23, hand: "C5) 5 lines - sum is 50 or more", sats: 5, count: 164328 },
-        { id: 24, hand: "C6) 6 lines - sum is 50 or more", sats: 10, count: 129355 },
-        { id: 25, hand: "C7) 7 lines - sum is 50 or more", sats: 0, count: 0 },
-        { id: 26, hand: "C8) 8 lines - sum is 50 or more", sats: 100, count: 29449 },
+        { id: 1, hand: "A0", sats: 0, count: 27962599 },
+        { id: 2, hand: "A1", sats: 0, count: 27747082 },
+        { id: 3, hand: "A2", sats: 0.5, count: 12171298 },
+        { id: 4, hand: "A3", sats: 1, count: 4263921 },
+        { id: 5, hand: "A4", sats: 2, count: 1018897 },
+        { id: 6, hand: "A5", sats: 5, count: 245967 },
+        { id: 7, hand: "A6", sats: 10, count: 90455 },
+        { id: 8, hand: "A6X", sats: 10, count: 2455 },
+        { id: 9, hand: "A6Z", sats: 10, count: 0 },
+        // { id: 10, hand: "A7", sats: 0, count: 0 },
+        // { id: 11, hand: "A7X", sats: 0, count: 0 },
+        // { id: 12, hand: "A7Z", sats: 0, count: 0 },
+        { id: 13, hand: "A8", sats: 100, count: 4652 },
+        { id: 14, hand: "A8X", sats: 100, count: 268 },
+        { id: 15, hand: "A8Z", sats: 100, count: 0 },
+        { id: 16, hand: "B0", sats: 1, count: 143763 },
+        { id: 17, hand: "B1", sats: 2, count: 656076 },
+        { id: 18, hand: "B2", sats: 4, count: 739932 },
+        { id: 19, hand: "B3", sats: 8, count: 432340 },
+        { id: 20, hand: "B4", sats: 16, count: 149655 },
+        { id: 21, hand: "B5", sats: 32, count: 43180 },
+        { id: 22, hand: "B6", sats: 64, count: 19915 },
+        { id: 23, hand: "B6X", sats: 64, count: 332 },
+        { id: 24, hand: "B6Z", sats: 64, count: 0 },
+        // { id: 25, hand: "B7", sats: 0, count: 0 },
+        // { id: 26, hand: "B7X", sats: 0, count: 0 },
+        // { id: 27, hand: "B7Z", sats: 0, count: 0 },
+        { id: 28, hand: "B8", sats: 100, count: 1410 },
+        { id: 29, hand: "B8X", sats: 100, count: 46 },
+        { id: 30, hand: "B8Z", sats: 100, count: 0 },
+        { id: 31, hand: "C0", sats: 0, count: 521899 },
+        { id: 32, hand: "C1", sats: 0, count: 3629952 },
+        { id: 33, hand: "C2", sats: 0.5, count: 6415715 },
+        { id: 34, hand: "C3", sats: 1, count: 6652148 },
+        { id: 35, hand: "C4", sats: 2, count: 3411649 },
+        { id: 36, hand: "C5", sats: 5, count: 1994094 },
+        { id: 37, hand: "C6", sats: 10, count: 1289823 },
+        { id: 38, hand: "C6X", sats: 10, count: 13104 },
+        { id: 39, hand: "C6Z", sats: 10, count: 697 },
+        // { id: 40, hand: "C7", sats: 0, count: 0 },
+        // { id: 41, hand: "C7X", sats: 0, count: 0 },
+        // { id: 42, hand: "C7Z", sats: 0, count: 0 },
+        { id: 43, hand: "C8", sats: 100, count: 371139 },
+        { id: 44, hand: "C8X", sats: 100, count: 5336 },
+        { id: 45, hand: "C8Z", sats: 100, count: 201 },
     ];
 
     const total_counts = default_hands.reduce((sum, sats) => sum + sats.count, 0);
@@ -186,6 +236,8 @@
     }
 
     function update_html() {
+        console.log('update_html');
+
         const tableBody = document.querySelector('tbody');
         tableBody.innerHTML = ''; // Clear existing rows
 
@@ -194,7 +246,7 @@
             row.innerHTML = `
                 <td>${hand.hand}</td >
                 <td>
-                    <input type="number" id="${hand.id}" value="${hand.sats}">
+                    <input type="number" id="${hand.id}" value="${hand.sats}" onclick="this.select()">
                 </td>
                 <td>${hand.count}</td>
                 <td>${hand.probability}</td>
@@ -203,22 +255,22 @@
             `;
             tableBody.appendChild(row);
             const id = hand.id;
-            document.getElementById(hand.id).addEventListener('keypress', (event) => {
+            const input = document.getElementById(hand.id);
+            input.addEventListener('input', (event) => {
                 const newSats = parseFloat(event.target.value);
-
                 if (isNaN(newSats)) {
                     return
                 }
                 hands.filter(h => h.id === id)[0].sats = newSats;
+                row.style.backgroundColor = 'red';
+            });
+            input.addEventListener('keypress', (event) => {
                 if (event.key === 'Enter' || event.key === 13) {
                     calculate_and_render();
                     document.getElementById(id).focus();
                 }
             });
-            // "done" on ios
-            document.getElementById(hand.id).addEventListener('blur', (event) => {
-                calculate_and_render();
-            });
+
         };
 
         const rtp = calculate_rtp();
@@ -274,6 +326,11 @@
     document.getElementById('reset').addEventListener('click', () => {
         localStorage.removeItem(cache_key);
         hands = JSON.parse(JSON.stringify(default_hands));
+        calculate_and_render();
+    });
+
+    document.getElementById('update').addEventListener('click', () => {
+        console.log('Update button clicked');
         calculate_and_render();
     });
 
